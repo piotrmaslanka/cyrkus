@@ -1,5 +1,5 @@
 # Read configuration
-import struct, json, socket, time
+import struct, json, zlib, socket, time
 
 def run(cfg):
     plugins = {}                    # Immutable plugins DB
@@ -20,6 +20,7 @@ def run(cfg):
         }
 
         jd = json.dumps(p).encode('utf8')
+        jd = zlib.compress(jd)
         jd = struct.pack('!L', len(jd))+jd  # data to send
 
         try:            # send the data to redaction

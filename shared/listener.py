@@ -1,4 +1,4 @@
-import struct, pickle
+import struct, json, zlib
 from satella.channels.sockets import Socket, SelectHandlingLayer
 
 class DataReceiverSocket(Socket):
@@ -31,11 +31,11 @@ class DataReceiverSocket(Socket):
         data = self.read(datalen)   # read rest of the data
 
         try:
-            obj = pickle.loads(data)
+            obj = json.loads(zlib.decompress(buffer(data)))
         except: # Failure occurred in recovering the information
             obj = None
 
-        self.readed_data = data
+        self.readed_data = obj
         self.is_finished = True
 
         self.close()
