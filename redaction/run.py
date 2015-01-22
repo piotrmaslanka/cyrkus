@@ -8,7 +8,7 @@ def run(cfg):
     for pluginname, confs in cfg['redaction']['plugins'].iteritems():
         pluginname = str(pluginname)
         p = __import__('cyrkus.redaction.plugins.'+pluginname, fromlist=['Plugin'])
-        plugins[pluginname] = p.Plugin(confs)
+        plugins[pluginname] = p.Plugin(confs, plugins)
 
 
     rshl = RSHL(tuple(cfg['listen_interface']), plugins)

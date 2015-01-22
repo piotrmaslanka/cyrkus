@@ -6,14 +6,14 @@ from hashlib import sha1
 import unicodedata, httplib, urllib
 
 class Plugin(object):
-    def __init__(self, config):
+    def __init__(self, config, plugins):
         """@param config: configuration, as seen in config.json"""
         self.config = config
-
+        self.plugins = plugins
 
         self.problem_occurred = set()
 
-    def on_received_report(self, data, plugins):
+    def on_received_report(self, data):
         """Received a report from other node"""
         nodename = data['nodename']
 
@@ -55,7 +55,7 @@ class Plugin(object):
             else:
                 # Error not flagged
                 self.problem_occurred.add(nodename)
-                for plugin in plugins.itervalues():
+                for plugin in self.plugins.itervalues():
                     try:
                         plugin.send('Error: '+nodename+': '+k)
                     except AttributeError:
@@ -63,7 +63,7 @@ class Plugin(object):
         else:
             if nodename in self.problem_occurred:
                 self.problem_occurred.remove(nodename)
-                for plugin in plugins.itervalues():
+                for plugin in self.plugins.itervalues():
                     try:
                         plugin.send('Safe: '+nodename)
                     except AttributeError:

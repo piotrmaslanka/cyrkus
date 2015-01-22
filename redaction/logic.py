@@ -28,7 +28,7 @@ class RSHL(SelectHandlingLayer, BaseThread):
                 # process that
                 for plugin in self.plugins.itervalues():
                     try:
-                        plugin.on_received_report(channel.readed_data, self.plugins)
+                        plugin.on_received_report(channel.readed_data)
                     except AttributeError:
                         pass
 
@@ -42,7 +42,7 @@ class RSHL(SelectHandlingLayer, BaseThread):
             if a == 6:
                 for plugin in self.plugins.itervalues():
                     try:
-                        plugin.timepulse(self.plugins)
+                        plugin.timepulse()
                     except AttributeError:
                         pass
 

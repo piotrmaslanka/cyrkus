@@ -6,9 +6,10 @@ from hashlib import sha1
 import unicodedata, httplib, urllib
 
 class Plugin(object):
-    def __init__(self, config):
+    def __init__(self, config, plugins):
         """@param config: configuration, as seen in config.json"""
         self.config = config
+        self.plugins = plugins
 
     def send(self, alert):
         """Message sending interface"""
