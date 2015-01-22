@@ -18,3 +18,5 @@ if __name__ == '__main__':
         run_reporter(conf)
     elif sys.argv[1] == 'redaction':
         run_redaction(conf)
+    else:
+        sys.stderr.write('Invalid argument, expected "reporter" or "redaction"')

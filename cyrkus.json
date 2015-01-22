@@ -22,7 +22,10 @@
                 "target": "+48000000000"
             },
             "ssysmon": null,
-            "timeouter": null
+            "timeouter": null,
+            "httpifc": {
+                "listen_interface": ["0.0.0.0", 8080]
+            }
         }
     }
 

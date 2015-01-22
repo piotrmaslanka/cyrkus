@@ -10,13 +10,9 @@ def run(cfg):
         p = __import__('cyrkus.redaction.plugins.'+pluginname, fromlist=['Plugin'])
         plugins[pluginname] = p.Plugin(confs, plugins)
 
-
     rshl = RSHL(tuple(cfg['listen_interface']), plugins)
 
     rshl.start()
-
-
-
 
     hang_until_sig()
 

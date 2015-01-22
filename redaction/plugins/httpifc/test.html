@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+    var nodes = %s;
+
+    function refresh() {
+        for (var i=0; i<nodes.length; i++)
+            draw_node(nodes[i]);
+        setTimeout(refresh, 20000);
+    }
+
+    function mkrow(title, html) {
+        var k = $('<div class="right"></div>');
+        k.html(html);
+        var l = $('<div class="left"></div>');
+        l.html(title);
+        var m = $('<div class="row"></div>');
+        m.append(k);
+        m.append(l);
+        return m;
+    }
+
+    function draw_node(nodedata) {
+        var nodename = nodedata['nodename'];
+        // construct header
+        var node = $('#'+nodedata['nodename']);
+        node.empty();
+
+        var header = $('<div class="header"><div class="header">'+nodedata['nodename']+'</div><div class="ip">'+nodedata['ip']+'</div></div>');
+        node.append(header);
+
+        node.append(mkrow('Ostatni raport', ))
+    }
+</script>
+<style type="text/css">
+#header {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 3em;
+}
+#content {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.node {
+    margin-bottom: 10px;
+    width: 250px;
+    border: 1px solid black;
+    float: left;
+    margin-right: 7px;
+    margin-left: 7px;
+}
+.node > .header {
+    border-bottom: 1px solid black;
+}
+.node > .header > .header {
+    text-align: center;
+    width: 250px;
+    font-size: 2em;
+}
+.node .header .ip {
+    text-align: center;
+    width: 250px;
+    color: gray;
+}
+.node .row {
+    width: 250px;
+    clear: both;
+}
+.node .row .left {
+    width: 120px;
+    padding-left: 5px;
+    float: left;
+}
+.node .row .right {
+    width: 120px;
+    float: right;
+    text-align: right;
+    padding-right: 5px;
+}
+.ok { color: green; }
+.fail { color: red; }
+</style>
+</head><body>
+<div id="header">MON</div>
+<div id="content">%s</div>
+</body></html>

@@ -1,7 +1,5 @@
 # coding=UTF-8
-"""
-SMS Plus GSM MultiInfo gateway
-"""
+"""TIMEOUT monitoR"""
 import time
 from hashlib import sha1
 import unicodedata, httplib, urllib
@@ -14,7 +12,7 @@ class Plugin(object):
         self.timeout_intervals = {} # plugin name => reporting_interval
         self.last_reports = {}      # plugin name => timeout of last reporting
         self.plugins = plugins
-        
+
         self.problems = set()   # names of node with problems
 
     def timepulse(self):

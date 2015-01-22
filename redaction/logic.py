@@ -24,7 +24,7 @@ class RSHL(SelectHandlingLayer, BaseThread):
             # We have actual data in this shit
             if channel.is_finished and channel.readed_data != None:
                 # annotate IP
-                channel.readed_data['ip'] = channel.socket.getpeername()
+                channel.readed_data['ip'] = channel.socket.getpeername()[0]
                 # process that
                 for plugin in self.plugins.itervalues():
                     try:

@@ -1,7 +1,5 @@
 # coding=UTF-8
-"""
-SMS Plus GSM MultiInfo gateway
-"""
+"""Standard SYStem MONitor"""
 from hashlib import sha1
 import unicodedata, httplib, urllib
 
@@ -28,8 +26,7 @@ class Plugin(object):
         cpu_problem = f['loadavg'][2] > f['cores']  # CPU overusage
 
         # --------------  Checking free memory
-        freemem = f['free_memory'] + f['buffers_memory'] + f['cached_memory']
-        lowmem_problem = freemem < 102400   # less than 100 MB available memory
+        lowmem_problem = f['avail_memory'] < 102400   # less than 100 MB available memory
 
         # --------------  Check free swap
         lowswap_problem = f['free_swap'] < 102400  # less than 100 MB swap

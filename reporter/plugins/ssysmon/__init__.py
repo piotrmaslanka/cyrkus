@@ -33,17 +33,24 @@ class Plugin(object):
 
         fst = os.statvfs('/')
 
+        try:
+            memavail = int(p['MemAvailable'])
+        except KeyError:
+            # Kernel is old enough not to have MemAvailable. Compute it
+            memavail = int(p['MemFree'])+int(p['Buffers'])+int(p['Cached'])
+
         return {
             "cores": cores,
             "loadavg": [float(m1f), float(m5f), float(m10f)],
             "total_processes": int(procs_total),
             "running_processes": int(procs_running),
-            "total_memory": p['MemTotal'],                        # kB
-            "free_memory": p['MemFree'],                          # kB
-            "buffers_memory": p['Buffers'],                       # kB
-            "cached_memory": p['Cached'],                         # kB
-            "total_swap": p['SwapTotal'],                         # kB
-            "free_swap": p['SwapFree'],                           # kB
+            "total_memory": int(p['MemTotal']),                   # kB
+            "avail_memory": memavail,                             # kB
+            "free_memory": int(p['MemFree']),                     # kB
+            "buffers_memory": int(p['Buffers']),                  # kB
+            "cached_memory": int(p['Cached']),                    # kB
+            "total_swap": int(p['SwapTotal']),                    # kB
+            "free_swap": int(p['SwapFree']),                      # kB
             "free_disk": fst.f_bfree * fst.f_frsize / 1024,       # kB
             "total_disk": fst.f_blocks * fst.f_frsize / 1024,     # kB
         }

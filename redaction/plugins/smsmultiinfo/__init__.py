@@ -1,7 +1,5 @@
 # coding=UTF-8
-"""
-SMS Plus GSM MultiInfo gateway
-"""
+"""SMS Plus GSM MultiInfo gateway"""
 from hashlib import sha1
 import unicodedata, httplib, urllib
 
