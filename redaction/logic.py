@@ -33,5 +33,17 @@ class RSHL(SelectHandlingLayer, BaseThread):
                         pass
 
     def run(self):
+        a = 0
         while not self._terminating:
             self.select(timeout=5)
+
+            a += 1
+
+            if a == 6:
+                for plugin in self.plugins.itervalues():
+                    try:
+                        plugin.timepulse(self.plugins)
+                    except AttributeError:
+                        pass
+
+                a = 0

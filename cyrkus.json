@@ -21,9 +21,8 @@
                 "orig": "ALARM SYSTEM",
                 "target": "+48000000000"
             },
-            "ssysmon": {
-                
-            }
+            "ssysmon": null,
+            "timeouter": null
         }
     }
 
