@@ -16,6 +16,7 @@ def run(cfg):
 
         p = {
             'data': p,
+            'reporting_interval': cfg['reporter']['reporting_interval'],
             'nodename': cfg['nodename'],
         }
 
@@ -25,6 +26,7 @@ def run(cfg):
 
         try:            # send the data to redaction
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(10)
             s.connect(tuple(cfg['reporter']['redaction_address']))
             s.sendall(jd)
             s.close()

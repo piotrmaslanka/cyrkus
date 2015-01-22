@@ -12,6 +12,19 @@
     },
 
     "redaction": {
+        "plugins": {
+            "smsmultiinfo": {
+                "certfile": "certfile.pem",
+                "login": "a-login",
+                "password": "a-password",
+                "serviceId": 000000,
+                "orig": "ALARM SYSTEM",
+                "target": "+48000000000"
+            },
+            "ssysmon": {
+                
+            }
+        }
     }
 
 }

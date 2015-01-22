@@ -4,9 +4,10 @@ from satella.threads import BaseThread
 from cyrkus.shared import DataReceiverSocket
 
 class RSHL(SelectHandlingLayer, BaseThread):
-    def __init__(self, lsport):
+    def __init__(self, lsport, plugins):
         SelectHandlingLayer.__init__(self)
         BaseThread.__init__(self)
+        self.plugins = plugins
         ss = socket(AF_INET, SOCK_STREAM)
         ss.bind(lsport)
         self.server_channel = ServerSocket(ss)
@@ -22,8 +23,14 @@ class RSHL(SelectHandlingLayer, BaseThread):
         else:
             # We have actual data in this shit
             if channel.is_finished and channel.readed_data != None:
+                # annotate IP
+                channel.readed_data['ip'] = channel.socket.getpeername()
                 # process that
-                print 'Received %s' % (repr(channel.readed_data), )
+                for plugin in self.plugins.itervalues():
+                    try:
+                        plugin.on_received_report(channel.readed_data, self.plugins)
+                    except AttributeError:
+                        pass
 
     def run(self):
         while not self._terminating:
